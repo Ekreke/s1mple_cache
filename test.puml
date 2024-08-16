@@ -1,0 +1,28 @@
+@startuml
+participant elder as e
+participant device as d
+participant fontend as f
+participant backend as b 
+participant tencent_lianlian as t  
+participant third_party as tp
+alt SOS触发报警
+e -> d : 触发紧急事件
+d -> f : 发送触发消息 
+alt 
+loop
+f -> f : 微信电话按序拨号微信紧急联系人 
+f -> b : 记录拨号日志
+end 
+else 微信电话未接通 , 接触云电话路径
+f -> b :  触发拨打云电话事件
+loop
+b -> b: 事件日志记录
+b -> tp : 电话提醒 
+end 
+end
+end
+
+
+
+
+@enduml
